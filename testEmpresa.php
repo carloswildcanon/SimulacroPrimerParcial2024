@@ -14,13 +14,10 @@ echo $objMoto3->__toString();
 
 $objEmpresa=new Empresa("Alta gama", "AV Argenetina 123",[$objCliente1,$objCliente2],[$objMoto1,$objMoto2,$objMoto3],[]);//[$objCliente1.$objCliente2]
 echo $objEmpresa->__toString();
-$x=[];
-print_r($x);
-array_push($x,1);
-print_r($x);
+
 echo "--------------PUNTO 5----------------------\n";
 $arrayVentas=$objEmpresa->registrarVenta([11,12,13],$objCliente2);
-//echo $objEmpresa->__toString();
+
 print_r($arrayVentas);
 echo "--------------PUNTO 6----------------------\n";
 $arrayVentas=$objEmpresa->registrarVenta([0],$objCliente2);
