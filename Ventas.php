@@ -59,10 +59,28 @@ class Ventas{
 
     }
 
+    public function retornarTotalVentaNacional(){
+        $colMotos=$this->getMotos();
+        foreach($colMotos as $moto){
+            $sumaVentas=0;
+            if($moto instanceof MotoNacional){
+                $sumaVentas+=$moto->darPrecioVenta();
+            }
+        }
+        return $sumaVentas;
+    }
 
 
-
-
+    public function retornarMotosImportadas(){
+        $colMotos=$this->getMotos();
+        $motosImportadas=[];
+        foreach($colMotos as $moto){
+            if($moto instanceof MotoImportada){
+                array_push($motosImportadas, $moto);
+            }
+        }
+        return $motosImportadas;
+    }
 
     public function concatenaMotos(){
         $cadena="";
