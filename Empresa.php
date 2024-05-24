@@ -49,30 +49,31 @@ class Empresa{
     public function retornarMotos($codigoMoto){
         $bandera=true;
         $contador=0;
-        $aux=true;
-        if ($this->getColeecionMotos()==null){
-            $moto=[];
+        $colMotos=$this->getColeecionMotos();
+        if ($colMotos==null){
+            $cantMoto=0;
         }else{
-            while($bandera){
-                if ($codigoMoto==$this->getColeecionMotos()[$contador]->getCodigo()){
-                    $moto=$this->getColeecionMotos()[$contador];
+            $cantMoto=0;
+        }
+        
+            while($bandera && $contador<$cantMoto){
+                if ($codigoMoto==$colMotos[$contador]->getCodigo()){
+                    $moto=$colMotos[$contador];
                     $bandera=false;
-                    $aux=false;
+                   
                 }
-                if($contador==count($this->getColeecionMotos())-1 && $aux){
-                    $moto=[];
-                    $bandera=false;
-                }
+                
                 $contador++;
             }
 
-        }
+        
         return $moto;
     }
     public function registrarVenta($colCodigosMoto,$objCliente){
         $numVenta=1;
         $colNuevaMotos=[];
-        $arrayVentas=[];
+        $arrayVentas=null;
+       
         if($this->getColeccionVentas()!=null){
             $numVenta=$this->getColeccionVentas()[count($this->getColeccionVentas())-1]->getNumero()+1;
         }
@@ -84,13 +85,12 @@ class Empresa{
                 if($cargaMoto){
                     $arrayVentas=$this->getColeccionVentas();
                     array_push($arrayVentas,$objVentaNueva);
-                    
+                    $this->setColeccionVentas($arrayVentas);
+                                      
                 }
             }
         } 
-        if($arrayVentas != null){
-            $this->setColeccionVentas($arrayVentas);
-        }
+        
         return $arrayVentas;
     }
 
@@ -121,6 +121,15 @@ class Empresa{
             }
         }
         return $cadena;
+    }
+
+    public function informarSumaVentasNacionales(){
+        $ventas=$this->getColeccionVentas();
+        $ventasTotales=0;
+        foreach($ventas as $venta){
+            $ventasTotales+=$venta->retornarTotalVentaNacional();
+        }
+        return $ventasTotales;
     }
 
 
